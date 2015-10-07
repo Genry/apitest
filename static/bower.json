@@ -1,0 +1,25 @@
+{
+  "name": "static",
+  "version": "0.0.0",
+  "authors": [
+    "Aidar Garifullin <agarifullin@transsintez.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "foundation": "~5.5.2",
+    "angular": "angularjs#~1.4.7",
+    "angular-sanitize": "~1.4.7"
+  }
+}
