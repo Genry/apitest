@@ -1,0 +1,37 @@
+!!!
+html
+    head
+        title
+            |WebService API
+
+        script(type='text/javascript', src='{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js')
+        script(type='text/javascript', src='{{ STATIC_URL }}bower_components/angular/angular.min.js')
+        script(type='text/javascript', src='{{ STATIC_URL }}bower_components/angular-sanitize/angular-sanitize.min.js')
+
+        script(type='text/javascript', src='{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js')
+        link(rel='stylesheet', href='{{ STATIC_URL }}bower_components/foundation/css/foundation.min.css')
+
+        script(type='text/javascript', src='{{ STATIC_URL }}scripts/app.js')
+
+        script(type='text/javascript')
+            |angular.module('apitest').value('$sendRequestUrl', '{% url "send_request" %}')
+
+    body(ng-app='apitest', ng-controller='MainCtrl')
+        div(class='panel')
+            form(ng-submit='sendRequest()')
+                div(class='row')
+                    div(class='large-9 columns')
+                        label URL
+                            input(type='text', placeholder='Введите url', ng-model='form.url')
+                    div(class='large-3 columns')
+                        label URL
+                            select(ng-model='form.method')
+                                option(value='GET') GET
+                                option(value='POST') POST
+
+                div(class='row')
+                    div(class='large-12 columns')
+                        button(type='submit' class='button small') Отправить запрос
+
+        div(class='panel', ng-bind-html='response', id='response')
+
