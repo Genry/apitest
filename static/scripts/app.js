@@ -48,15 +48,50 @@ app.config(function($interpolateProvider, $httpProvider) {
 app.controller('MainCtrl', MainCtrl);
 
 function MainCtrl($scope, $http, $sendRequestUrl){
+  $scope.params = [];
+  $scope.headers = [];
   $scope.form = {
     method: 'GET',
     url: ''
   };
+  $scope.addHeader = function(){
+    $scope.headers.push({
+      name: '',
+      value: ''
+    })
+  };
+  $scope.addParam = function(){
+    $scope.params.push({
+      name: '',
+      value: ''
+    })
+  };
+
+  function getData(){
+    var _temp='', data = angular.copy($scope.form);
+    for(var i=0; i<$scope.params.length; i++){
+      _temp += ($scope.params[i].name + '.' + $scope.params[i].value)
+      if(i!=$scope.params.length-1){
+        _temp += ','
+      }
+    }
+    data.params = _temp;
+    _temp='';
+    for(var i=0; i<$scope.headers.length; i++){
+      _temp += ($scope.headers[i].name + '.' + $scope.headers[i].value)
+      if(i!=$scope.headers.length-1){
+        _temp += ','
+      }
+    }
+    data.headers = _temp;
+    return data
+  }
+
   $scope.sendRequest = function(){
     return $http({
       method: 'POST',
       url: $sendRequestUrl,
-      data: $scope.form
+      data: getData()
     }).success(function (response) {
       $('#response').html(response)
     })

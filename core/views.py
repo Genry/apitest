@@ -24,8 +24,24 @@ def send_request_view(request):
     :param request:
     :return:
     """
+    data = params = headers = {}
+
+    if request.POST.get('method') == 'GET':
+        method = 'GET'
+        if request.POST.get('params', []):
+            params = dict((key, value) for key, value in [rec.split('.') for rec in request.POST.get('params').split(',')])
+    else:
+        method = 'POST'
+        if request.POST.get('params', []):
+            data = dict((key, value) for key, value in [rec.split('.') for rec in request.POST.get('params').split(',')])
+
+    if request.POST.get('headers', []):
+        headers = dict((key, value) for key, value in [rec.split('.') for rec in request.POST.get('headers').split(',')])
+
     url = request.POST.get('url', '')
+
     if not url:
         return Response()
-    response = requests.request(request.REQUEST.get('method'), build_url(url))
+    print(headers, data, params)
+    response = requests.request(method, build_url(url), headers=headers, data=data, params=params)
     return Response(response.text)
