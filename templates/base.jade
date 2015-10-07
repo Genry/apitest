@@ -63,7 +63,10 @@ html
                     div(class='large-12 columns')
                         button(type='submit' class='button small') Отправить запрос
 
-        div(class='panel', ng-bind-html='response', id='response')
+        h4
+            |Status: {<{ response.status }>}
+
+        div(class='panel', id='response')
 
         script
             | $(document).foundation();

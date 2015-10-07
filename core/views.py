@@ -42,6 +42,9 @@ def send_request_view(request):
 
     if not url:
         return Response()
-    print(headers, data, params)
+
     response = requests.request(method, build_url(url), headers=headers, data=data, params=params)
-    return Response(response.text)
+    return Response({
+        'text': response.text,
+        'status': response.status_code
+    })

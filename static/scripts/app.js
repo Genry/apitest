@@ -93,7 +93,8 @@ function MainCtrl($scope, $http, $sendRequestUrl){
       url: $sendRequestUrl,
       data: getData()
     }).success(function (response) {
-      $('#response').html(response)
+      $('#response').html(response.text)
+      $scope.response = response;
     })
   }
 }
